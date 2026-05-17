@@ -1,5 +1,5 @@
 window.FIREBASE_CONFIG = {
-  apiKey: "AIzaSyDkpW_OEexM5Qf9MiMPjOKazddqIWCpw0g",
+  apiKey: "AIzaSyDkpW_OEexM5Qf9MiMPj0KazddqIWCpw0g",
   authDomain: "webporto-8bb01.firebaseapp.com",
   databaseURL: "https://webporto-8bb01-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "webporto-8bb01",
