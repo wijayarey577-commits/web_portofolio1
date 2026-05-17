@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christofer Rey Wijaya — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="00-base.css">
+<link rel="stylesheet" href="10-nav-dev.css">
+<link rel="stylesheet" href="20-home-sections.css">
+<link rel="stylesheet" href="30-cards-projects.css">
+<link rel="stylesheet" href="40-detail-modal-responsive.css">
+<link rel="stylesheet" href="50-hero-portrait.css">
+<link rel="stylesheet" href="60-apple-theme.css">
+<link rel="stylesheet" href="70-admin-media-3d.css">
+</head>
+<body>
+<div class="bg-orbs"></div>
+<div class="grid-bg"></div>
+<div id="cur"></div><div id="cur-ring"></div>
+<div id="prog"></div>
+<div id="toast"></div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+  <button id="lightbox-close" onclick="closeLightbox()">&#x2715;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<!-- PROJECT DETAIL PAGE -->
+<div id="project-detail">
+  <div class="pd-nav">
+    <button class="pd-back" onclick="closeDetail()">&#8592; Back to Portfolio</button>
+    <div class="pd-nav-title" id="pd-nav-title"></div>
+    <div class="pd-nav-badge" id="pd-nav-badge"></div>
+  </div>
+  <div class="pd-hero" id="pd-hero">
+    <div class="pd-hero-fallback" id="pd-hero-fallback"></div>
+    <img class="pd-hero-img" id="pd-hero-img" src="" alt="" style="display:none">
+    <div class="pd-hero-overlay"></div>
+    <div class="pd-hero-content">
+      <div class="pd-badge-row">
+        <div class="pd-status" id="pd-status"></div>
+        <div class="pd-date" id="pd-date"></div>
+      </div>
+      <div class="pd-title" id="pd-title"></div>
+      <div class="pd-subtitle" id="pd-subtitle"></div>
+    </div>
+  </div>
+  <div class="pd-body">
+    <div style="margin-bottom:40px">
+      <div class="pd-section-title">Description</div>
+      <div class="pd-desc" id="pd-desc"></div>
+    </div>
+    <div style="margin-bottom:40px">
+      <div class="pd-section-title">Tech Stack</div>
+      <div class="pd-tags" id="pd-tags"></div>
+    </div>
+    <div id="pd-gallery-section">
+      <div class="pd-section-title">Gallery</div>
+      <div class="pd-gallery-grid" id="pd-gallery-grid"></div>
+      <div class="pd-upload-area" id="pd-upload-area" onclick="document.getElementById('pd-img-input').click()">
+        <div style="font-size:24px;margin-bottom:8px">&#128247;</div>
+        <div>Click to upload project images</div>
+        <div style="font-size:9px;margin-top:4px;opacity:.6">JPG, PNG, WEBP — stored in browser</div>
+      </div>
+      <input type="file" id="pd-img-input" multiple accept="image/*" style="display:none" onchange="uploadProjImgs(event)">
+    </div>
+    <div id="pd-video-section" style="margin-top:40px">
+      <div class="pd-section-title">Videos</div>
+      <div class="pd-video-grid" id="pd-video-grid"></div>
+      <div class="pd-upload-area video-upload" id="pd-video-upload-area" onclick="document.getElementById('pd-video-input').click()">
+        <div style="font-size:24px;margin-bottom:8px">&#9654;</div>
+        <div>Click to upload project videos</div>
+        <div style="font-size:9px;margin-top:4px;opacity:.6">MP4, WEBM, MOV — stored in browser</div>
+      </div>
+      <input type="file" id="pd-video-input" multiple accept="video/mp4,video/webm,video/quicktime,video/*" style="display:none" onchange="uploadProjectVideos(event)">
+    </div>
+    <div id="pd-model-section" style="margin-top:40px">
+      <div class="pd-section-title">3D Models</div>
+      <div class="model-list" id="model-list"></div>
+      <div class="model-viewer" id="model-viewer">
+        <canvas id="model-canvas" width="960" height="540"></canvas>
+        <div class="model-axis-controls" aria-label="3D model view controls">
+          <button type="button" onclick="setModelView('x')" title="View X axis">X</button>
+          <button type="button" onclick="setModelView('y')" title="View Y axis">Y</button>
+          <button type="button" onclick="setModelView('z')" title="View Z axis">Z</button>
+          <button type="button" onclick="setModelView('iso')" title="Isometric view">ISO</button>
+          <button type="button" onclick="tiltModel(-1)" title="Tilt left">&#8634;</button>
+          <button type="button" onclick="tiltModel(1)" title="Tilt right">&#8635;</button>
+          <button type="button" onclick="toggleModelAuto()" title="Auto rotate">AUTO</button>
+        </div>
+        <div class="model-empty" id="model-empty">No 3D model selected.</div>
+      </div>
+      <div class="pd-upload-area model-upload" id="model-upload-area" onclick="document.getElementById('model-input').click()">
+        <div style="font-size:24px;margin-bottom:8px">&#x1F9CA;</div>
+        <div>Click to upload STL model</div>
+        <div style="font-size:9px;margin-top:4px;opacity:.6">STL ASCII/Binary — stored in browser</div>
+      </div>
+      <input type="file" id="model-input" multiple accept=".stl,model/stl" style="display:none" onchange="uploadProjectModels(event)">
+    </div>
+  </div>
+</div>
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <a class="nav-logo" href="#home">CRW</a>
+    <div class="nav-name">CHRISTOFER REY WIJAYA</div>
+  </div>
+  <ul class="nav-center">
+    <li><a class="active" href="#home">Home</a></li>
+    <li><a href="#skills">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#awards">Achievements</a></li>
+    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark and light mode"><span id="theme-icon">Dark</span></button>
+    <div class="nav-ticker" id="ticker">00:00:00</div>
+    <div style="position:relative">
+      <button id="login-btn" onclick="toggleDrop()">&#9881; Dev Login</button>
+      <div id="login-drop">
+        <div class="ld-head">
+          <div><div class="ld-head-title">Developer Access</div><div class="ld-head-sub">PORTFOLIO ADMIN</div></div>
+          <button class="ld-x" onclick="closeDrop()">&#x2715;</button>
+        </div>
+        <div id="ld-guest-state">
+          <div class="ld-guest-msg">Login sebagai developer untuk mengaktifkan mode edit penuh.</div>
+          <div class="ld-sep">LOGIN AS DEVELOPER</div>
+          <div id="ld-login-form">
+            <div class="ld-fg"><label class="ld-lbl">Username</label><input type="text" class="ld-inp" id="inp-user" placeholder="username" autocomplete="username"></div>
+            <div class="ld-fg"><label class="ld-lbl">Password</label><input type="password" class="ld-inp" id="inp-pass" placeholder="password" autocomplete="current-password"></div>
+            <div class="ld-err" id="ld-err">Username atau password salah</div>
+            <button class="ld-submit" onclick="doLogin()">Login &#x2192;</button>
+          </div>
+        </div>
+        <div id="ld-dev-state">
+          <div class="ld-dev-badge"><div class="ld-dev-dot"></div>Developer Mode Active</div>
+          <p style="font-family:var(--fm);font-size:10px;color:var(--muted);line-height:1.6;margin-top:4px">Mode edit aktif. Gunakan bar bawah layar.</p>
+          <button class="ld-logout" onclick="doLogout()">Logout Developer</button>
+        </div>
+      </div>
+    </div>
+    <button class="hamburger" id="hbg" onclick="toggleNav()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mob-nav" id="mob-nav">
+  <a href="#awards" onclick="closeNav()">&#x2192; Awards</a>
+  <a href="#skills" onclick="closeNav()">&#x2192; Skills</a>
+  <a href="#projects" onclick="closeNav()">&#x2192; Projects</a>
+  <a href="#experience" onclick="closeNav()">&#x2192; Experience</a>
+  <a href="#certs" onclick="closeNav()">&#x2192; Certifications</a>
+  <a href="#timeline" onclick="closeNav()">&#x2192; Timeline</a>
+  <a href="#contact" onclick="closeNav()">&#x2192; Contact</a>
+</div>
+<div id="dev-bar">
+  <span class="dbl">&#9881; DEV MODE</span>
+  <button class="da p" onclick="openModal('award')">+ Award</button>
+  <button class="da p" onclick="openModal('skill')">+ Skill</button>
+  <button class="da p" onclick="openModal('project')">+ Project</button>
+  <button class="da p" onclick="openModal('exp')">+ Experience</button>
+  <button class="da p" onclick="openModal('cert')">+ Cert</button>
+  <div class="db-sp"></div>
+  <button class="da" onclick="exportDatabase()">Export DB</button>
+  <button class="da" onclick="document.getElementById('db-import-input').click()">Import DB</button>
+  <button class="da" onclick="loadFirebaseDatabase(false)">Load Firebase</button>
+  <button class="da p" onclick="publishDatabaseToFirebase()">Save Firebase</button>
+  <button class="da" onclick="loadRemoteDatabase(false)">Load Cloud</button>
+  <button class="da p" onclick="publishDatabaseToGitHub()">Publish GitHub</button>
+  <button class="da" onclick="openModal('profile')">&#x270E; Edit Profile</button>
+  <button class="da d" onclick="resetAll()">&#x27F3; Reset</button>
+  <input type="file" id="db-import-input" accept="application/json,.json" style="display:none" onchange="importDatabase(event)">
+  <input type="file" id="cv-upload-input" accept="application/pdf,.pdf" style="display:none" onchange="uploadCVFile(event)">
+</div>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero">
+    <div class="hero-left reveal">
+      <div class="chip"><span>Hello, I'm</span><span class="chip-line"></span><span class="chip-dot"></span></div>
+      <h1 class="hero-name">
+        <span class="first" id="h-fname">CHRISTOFER</span><br>
+        <span class="last" id="h-lname">REY WIJAYA</span>
+      </h1>
+      <div class="hero-rolebar">
+        <div class="hero-role" id="h-role">Robotics &amp; Automotive Engineer</div>
+        <div class="hero-roleline"></div>
+      </div>
+      <div class="hero-desc" id="h-desc">I design and build embedded systems, robotics, and automotive solutions with a passion for innovation and performance. Experienced in turning ideas into real-world prototypes and competing at the highest level.</div>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn btn-cta"><span class="btn-ico">&#x1F680;</span>View Projects</a>
+        <a href="#contact" class="btn btn-ghost"><span class="btn-ico">&#x263A;</span>Contact Me</a>
+        <a href="cv.pdf" class="btn btn-ghost cv-download-link" download onclick="handleCVClick(event)"><span class="btn-ico">CV</span><span class="cv-link-text">Download CV</span></a>
+        <a href="#certs" class="btn btn-ghost"><span class="btn-ico">&#x25CE;</span>Certificates</a>
+      </div>
+      <div class="gpa-pill" aria-label="GPA"><span class="gpa-lbl">GPA</span><span class="gpa-val" id="h-gpa">3.53</span></div>
+      <div class="hero-stats-row">
+        <div class="hero-stat"><div class="stat-num" id="c-proj">0</div><div class="stat-lbl">Projects</div></div>
+        <div class="hero-stat"><div class="stat-num" id="c-aw">0</div><div class="stat-lbl">Awards</div></div>
+        <div class="hero-stat"><div class="stat-num" id="c-intl">0</div><div class="stat-lbl">Intl Events</div></div>
+        <div class="hero-stat"><div class="stat-num" id="c-gpa2">0</div><div class="stat-lbl">GPA</div></div>
+      </div>
+    </div>
+    <div class="hero-photo-col reveal">
+      <div class="profile-portrait">
+        <div class="portrait-glow"></div>
+        <img class="profile-photo" src="pass_foto_cutout.png" alt="Christofer Rey Wijaya formal portrait" onerror="this.classList.add('missing')">
+        <div class="portrait-fallback" aria-hidden="true">
+          <span>CRW</span>
+        </div>
+      </div>
+      <div class="hero-photo-caption">
+        <b>Christofer Rey Wijaya</b>
+        <span>Robotics &amp; Automotive Engineer</span>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- AWARDS -->
+<section id="awards"><div class="sw alt">
+  <div class="sh reveal"><div class="sn">01</div><h2 class="st">Awards &amp; <span>Honors</span></h2><button class="sec-dev-btn" onclick="openModal('award')">+ Add</button><div class="sl"></div></div>
+  <div class="ag" id="awards-grid"></div>
+</div></section>
+
+<!-- SKILLS -->
+<section id="skills"><div class="sw">
+  <div class="sh reveal"><div class="sn">02</div><h2 class="st">Skills &amp; <span>Stack</span></h2><button class="sec-dev-btn" onclick="openModal('skill')">+ Add</button><div class="sl"></div></div>
+  <div class="skills-layout">
+    <div class="reveal"><div class="sbl">// SOFTWARE & ENGINEERING APPS</div><div class="tool-logo-grid" id="skill-bars"></div></div>
+    <div class="reveal"><div class="sbl">// HARDWARE & FRAMEWORKS</div><div class="tools-cloud" id="tools-cloud"></div></div>
+  </div>
+</div></section>
+
+<!-- PROJECTS -->
+<section id="projects"><div class="sw alt">
+  <div class="sh reveal"><div class="sn">03</div><h2 class="st">Project <span>Portfolio</span></h2><button class="sec-dev-btn" onclick="openModal('project')">+ Add</button><div class="sl"></div></div>
+  <div class="ai-box reveal">
+    <div class="ai-box-head"><div class="ai-dots"><div class="ai-d"></div><div class="ai-d"></div><div class="ai-d"></div></div><div class="ai-ttl">AI ASSISTANT &mdash; Ask about Christofer&apos;s projects</div></div>
+    <div class="ai-body">
+      <div class="ai-row">
+        <span class="ai-ps">&#x203A;</span>
+        <input type="text" id="ai-input" placeholder="Tanya project, bandingkan Shell vs KMHE, atau cari skill AGV...">
+        <button id="btn-run" onclick="askAI()">Ask AI</button>
+      </div>
+      <div id="ai-response"></div>
+    </div>
+  </div>
+  <div class="filters reveal">
+    <button class="f-pill active" onclick="filterProj('all',this)">All</button>
+    <button class="f-pill" onclick="filterProj('competition',this)">Competition</button>
+    <button class="f-pill" onclick="filterProj('robotics',this)">Robotics</button>
+    <button class="f-pill" onclick="filterProj('cfd',this)">CFD / CAE</button>
+    <button class="f-pill" onclick="filterProj('ev',this)">EV / Auto</button>
+    <button class="f-pill" onclick="filterProj('drone',this)">Drone / UAV</button>
+  </div>
+  <div class="pg" id="proj-grid"></div>
+</div></section>
+
+<!-- EXPERIENCE -->
+<section id="experience"><div class="sw">
+  <div class="sh reveal"><div class="sn">04</div><h2 class="st">Work &amp; <span>Experience</span></h2><button class="sec-dev-btn" onclick="openModal('exp')">+ Add</button><div class="sl"></div></div>
+  <div class="exp-list" id="exp-list"></div>
+</div></section>
+
+<!-- CERTS -->
+<section id="certs"><div class="sw alt">
+  <div class="sh reveal"><div class="sn">05</div><h2 class="st">Certifi<span>cations</span></h2><button class="sec-dev-btn" onclick="openModal('cert')">+ Add</button><div class="sl"></div></div>
+  <div class="cert-wrap reveal" id="cert-grid"></div>
+  <div style="margin-top:24px" class="reveal" id="cert-link-wrap"></div>
+</div></section>
+
+<!-- TIMELINE -->
+<section id="timeline"><div class="sw">
+  <div class="sh reveal"><div class="sn">06</div><h2 class="st">Journey <span>Timeline</span></h2><div class="sl"></div></div>
+  <div class="timeline-intro reveal">A compact view of awards, projects, and experience from 2023 to 2026.</div>
+  <div class="timeline-list" id="timeline-list"></div>
+</div></section>
+
+<!-- CONTACT -->
+<section id="contact"><div class="sw">
+  <div class="sh reveal"><div class="sn">07</div><h2 class="st">Get in <span>Touch</span></h2><div class="sl"></div></div>
+  <div class="contact-layout reveal">
+    <div class="contact-about" id="contact-about"></div>
+    <div class="c-links" id="contact-links"></div>
+    <form class="contact-form" onsubmit="sendContactMail(event)">
+      <div class="contact-form-title">Send a Message</div>
+      <div class="cf-row">
+        <label class="cf-field">Name<input id="contact-name" type="text" placeholder="Your name" required></label>
+        <label class="cf-field">Email<input id="contact-email" type="email" placeholder="your@email.com" required></label>
+      </div>
+      <label class="cf-field">Message<textarea id="contact-message" placeholder="Tell me about the opportunity or project..." required></textarea></label>
+      <button class="btn btn-cta cf-submit" type="submit">Open Email App</button>
+    </form>
+  </div>
+</div></section>
+
+<footer>
+  <div>&copy; <span id="yr"></span> <span class="acc">Christofer Rey Wijaya</span> &mdash; Robotics &amp; Automotive Engineer</div>
+  <div>GPA <span class="acc">3.53</span> &middot; Binus University</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modal-wrap" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-head"><div class="modal-head-title" id="modal-title">Add Item</div><button class="modal-close" onclick="closeModal()">&#x2715;</button></div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-foot"><button class="btn-cancel" onclick="closeModal()">Cancel</button><button class="btn-save" onclick="saveModal()">Save</button></div>
+  </div>
+</div>
+
+<!-- IMAGE CROP EDITOR -->
+<div class="crop-backdrop" id="crop-wrap">
+  <div class="crop-modal">
+    <div class="crop-head">
+      <div><div class="crop-title" id="crop-title">Crop Project Image</div><div class="crop-sub" id="crop-sub">Drag image, adjust zoom, then save in HD 1920x1080</div></div>
+      <button class="modal-close" onclick="cancelCrop()">&#x2715;</button>
+    </div>
+    <div class="crop-stage">
+      <canvas id="crop-canvas" width="1920" height="1080"></canvas>
+    </div>
+    <div class="crop-controls">
+      <label for="crop-zoom">Zoom</label>
+      <input type="range" id="crop-zoom" min="1" max="3" step="0.01" value="1">
+    </div>
+    <div class="crop-actions">
+      <button class="btn-cancel" onclick="skipCrop()">Use Original</button>
+      <button class="btn-cancel" onclick="cancelCrop()">Cancel</button>
+      <button class="btn-save" onclick="saveCrop()">Save Crop</button>
+    </div>
+  </div>
+</div>
+
+<script src="00-config-data.js"></script>
+<script src="10-theme.js"></script>
+<script src="20-ui-auth.js"></script>
+<script src="30-render-sections.js"></script>
+<script src="40-project-detail-media.js"></script>
+<script src="50-admin-modal.js"></script>
+<script src="60-database-crop-3d.js"></script>
+<script src="70-ai-toast-observe.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="80-firebase-sync.js"></script>
+<script src="99-bootstrap.js"></script>
+</body>
+</html>

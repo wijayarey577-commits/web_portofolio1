@@ -1,0 +1,561 @@
+﻿/* APPLE-STYLE UI + DARK/LIGHT MODE */
+:root,
+:root[data-theme="dark"]{
+  --apple-bg:#050506;
+  --apple-bg2:#111114;
+  --apple-surface:rgba(28,28,30,.72);
+  --apple-surface-solid:#1c1c1e;
+  --apple-border:rgba(255,255,255,.12);
+  --apple-text:#f5f5f7;
+  --apple-muted:#a1a1a6;
+  --apple-blue:#0a84ff;
+  --apple-cyan:#64d2ff;
+  --apple-shadow:0 24px 70px rgba(0,0,0,.38);
+}
+:root[data-theme="light"]{
+  --apple-bg:#f5f5f7;
+  --apple-bg2:#ffffff;
+  --apple-surface:rgba(255,255,255,.72);
+  --apple-surface-solid:#ffffff;
+  --apple-border:rgba(0,0,0,.10);
+  --apple-text:#1d1d1f;
+  --apple-muted:#6e6e73;
+  --apple-blue:#0071e3;
+  --apple-cyan:#06c;
+  --apple-shadow:0 24px 70px rgba(0,0,0,.12);
+}
+html{color-scheme:dark}
+:root[data-theme="light"]{color-scheme:light}
+body{
+  background:
+    radial-gradient(circle at 72% 10%,color-mix(in srgb,var(--apple-blue) 18%,transparent),transparent 28%),
+    linear-gradient(180deg,var(--apple-bg),var(--apple-bg2)) !important;
+  color:var(--apple-text) !important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Inter","Segoe UI",sans-serif !important;
+}
+.bg-orbs{display:none !important}
+.grid-bg{
+  opacity:.36;
+  background-image:linear-gradient(var(--apple-border) 1px,transparent 1px),linear-gradient(90deg,var(--apple-border) 1px,transparent 1px) !important;
+  background-size:80px 80px !important;
+}
+#cur,#cur-ring{display:none !important}
+nav{
+  height:72px !important;
+  padding:0 44px !important;
+  background:color-mix(in srgb,var(--apple-surface) 88%,transparent) !important;
+  border-bottom:1px solid var(--apple-border) !important;
+  backdrop-filter:blur(28px) saturate(1.8) !important;
+}
+.nav-logo{
+  color:var(--apple-text) !important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif !important;
+  font-size:20px !important;
+  font-style:normal !important;
+  letter-spacing:-.02em !important;
+  text-shadow:none !important;
+}
+.nav-name{
+  color:var(--apple-muted) !important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif !important;
+  font-size:13px !important;
+  letter-spacing:.02em !important;
+}
+.nav-center{gap:10px !important}
+.nav-center a{
+  color:var(--apple-muted) !important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif !important;
+  font-size:13px !important;
+  font-weight:500 !important;
+  letter-spacing:0 !important;
+  padding:9px 12px !important;
+  border-radius:999px !important;
+}
+.nav-center a:hover,
+.nav-center a.active{
+  color:var(--apple-text) !important;
+  background:color-mix(in srgb,var(--apple-text) 8%,transparent) !important;
+}
+.nav-center a.active::after{display:none !important}
+.nav-social{
+  color:var(--apple-muted) !important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif !important;
+  font-size:12px !important;
+}
+.theme-toggle{
+  min-width:58px;
+  padding:0 12px;
+  height:36px;
+  border:1px solid var(--apple-border);
+  border-radius:999px;
+  background:color-mix(in srgb,var(--apple-text) 7%,transparent);
+  color:var(--apple-text);
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  font-weight:600;
+  transition:transform .2s,background .2s,border-color .2s;
+}
+.theme-toggle:hover{
+  transform:translateY(-1px);
+  background:color-mix(in srgb,var(--apple-text) 12%,transparent);
+}
+#login-btn{
+  border-radius:999px !important;
+  background:color-mix(in srgb,var(--apple-text) 7%,transparent) !important;
+  border:1px solid var(--apple-border) !important;
+  color:var(--apple-muted) !important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif !important;
+  letter-spacing:0 !important;
+  text-transform:none !important;
+}
+#home{
+  background:transparent !important;
+  overflow:hidden !important;
+}
+#home::before{
+  background:
+    radial-gradient(circle at 74% 36%,color-mix(in srgb,var(--apple-blue) 24%,transparent),transparent 30%),
+    radial-gradient(circle at 18% 18%,color-mix(in srgb,var(--apple-cyan) 14%,transparent),transparent 24%) !important;
+}
+#home .hero{
+  min-height:100vh !important;
+  padding:96px 64px 42px !important;
+  grid-template-columns:minmax(360px,1.08fr) minmax(280px,.92fr) !important;
+  gap:44px !important;
+}
+#home .hero-left{
+  padding:52px 0 !important;
+}
+#home .chip{
+  color:var(--apple-blue) !important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif !important;
+  font-size:15px !important;
+  font-weight:600 !important;
+  letter-spacing:.08em !important;
+  text-transform:uppercase !important;
+}
+#home .chip-line{
+  background:linear-gradient(90deg,var(--apple-blue),transparent) !important;
+}
+#home .hero-name{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif !important;
+  font-size:clamp(52px,7vw,116px) !important;
+  font-weight:800 !important;
+  line-height:.94 !important;
+  letter-spacing:-.06em !important;
+  text-shadow:none !important;
+}
+#home .hero-name .first{
+  color:var(--apple-text) !important;
+}
+#home .hero-name .last{
+  color:transparent !important;
+  background:linear-gradient(110deg,var(--apple-blue),var(--apple-cyan));
+  -webkit-background-clip:text;
+  background-clip:text;
+  text-shadow:none !important;
+}
+#home .hero-rolebar{
+  width:max-content;
+  padding:9px 16px !important;
+  border:1px solid var(--apple-border) !important;
+  border-radius:999px !important;
+  background:var(--apple-surface) !important;
+  backdrop-filter:blur(20px);
+}
+#home .hero-role{
+  color:var(--apple-text) !important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif !important;
+  font-size:14px !important;
+  font-weight:600 !important;
+  letter-spacing:.02em !important;
+  text-transform:none !important;
+}
+#home .hero-desc{
+  border-left:0 !important;
+  padding-left:0 !important;
+  color:var(--apple-muted) !important;
+  font-size:clamp(17px,1.3vw,22px) !important;
+  line-height:1.48 !important;
+  max-width:720px !important;
+}
+#home .hero-ctas{
+  gap:12px !important;
+}
+#home .btn{
+  height:48px !important;
+  min-width:148px !important;
+  padding:0 20px !important;
+  border-radius:999px !important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif !important;
+  font-size:15px !important;
+  font-weight:600 !important;
+  letter-spacing:0 !important;
+  text-transform:none !important;
+  background:var(--apple-surface) !important;
+  color:var(--apple-text) !important;
+  border:1px solid var(--apple-border) !important;
+  box-shadow:none !important;
+}
+#home .btn-cta{
+  background:var(--apple-blue) !important;
+  border-color:var(--apple-blue) !important;
+  color:white !important;
+}
+#home .btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 30px color-mix(in srgb,var(--apple-blue) 18%,transparent) !important;
+}
+#home .hero-photo-col::before{
+  border:1px solid var(--apple-border) !important;
+  border-radius:36px !important;
+  clip-path:none !important;
+  background:var(--apple-surface) !important;
+  box-shadow:var(--apple-shadow) !important;
+  backdrop-filter:blur(24px) saturate(1.5);
+}
+.portrait-glow{
+  border:0 !important;
+  border-radius:36px !important;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--apple-blue) 16%,transparent),transparent) !important;
+  box-shadow:none !important;
+}
+.profile-photo,
+.portrait-fallback{
+  border:1px solid var(--apple-border) !important;
+  border-radius:28px !important;
+  box-shadow:var(--apple-shadow) !important;
+}
+#home .hero-photo-caption{
+  border:1px solid var(--apple-border) !important;
+  border-left:1px solid var(--apple-border) !important;
+  border-radius:22px !important;
+  background:var(--apple-surface) !important;
+  box-shadow:0 18px 50px color-mix(in srgb,#000 22%,transparent);
+}
+#home .hero-photo-caption b{
+  color:var(--apple-text) !important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif !important;
+  font-size:13px !important;
+  letter-spacing:0 !important;
+}
+#home .hero-photo-caption span{
+  color:var(--apple-muted) !important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif !important;
+  font-size:12px !important;
+  letter-spacing:0 !important;
+}
+.sw,.sw.alt{
+  background:transparent !important;
+  border-color:var(--apple-border) !important;
+}
+.st{
+  color:var(--apple-text) !important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif !important;
+  letter-spacing:-.04em !important;
+}
+.st span,.sn{color:var(--apple-blue) !important}
+.aw-card,.pc,.ai-box,.exp-item,.contact-about,.c-link,.cert-chip,.tool-chip{
+  background:var(--apple-surface) !important;
+  border:1px solid var(--apple-border) !important;
+  border-radius:18px !important;
+  box-shadow:0 10px 30px color-mix(in srgb,#000 12%,transparent);
+  backdrop-filter:blur(20px) saturate(1.4);
+}
+.aw-name,.pc-title,.exp-role,.contact-about strong{
+  color:var(--apple-text) !important;
+}
+.aw-sub,.pc-desc,.exp-bul,.contact-about,.c-val,.tool-chip,.cert-chip{
+  color:var(--apple-muted) !important;
+}
+.pc-thumb,.pc-thumb-fallback{
+  border-radius:16px !important;
+}
+.f-pill{
+  border-radius:999px !important;
+  background:var(--apple-surface) !important;
+  color:var(--apple-muted) !important;
+  border:1px solid var(--apple-border) !important;
+}
+.f-pill.active{
+  background:var(--apple-blue) !important;
+  border-color:var(--apple-blue) !important;
+  color:white !important;
+}
+footer{
+  background:var(--apple-surface) !important;
+  border-top:1px solid var(--apple-border) !important;
+  color:var(--apple-muted) !important;
+}
+footer .acc{color:var(--apple-text) !important}
+@media(max-width:980px){
+  .theme-toggle{min-width:54px;height:34px}
+  #home .hero{padding:84px 28px 36px !important}
+}
+@media(max-width:700px){
+  nav{padding:0 16px !important}
+  .theme-toggle{display:inline-flex !important}
+  #home .hero{padding:84px 18px 36px !important}
+  #home .hero-name{font-size:clamp(44px,15vw,72px) !important}
+  #home .btn{width:100% !important;max-width:none !important}
+}
+
+/* LIGHT MODE READABILITY + SPACING FIX */
+:root[data-theme="light"] body{
+  background:
+    radial-gradient(circle at 76% 8%,rgba(0,113,227,.10),transparent 24%),
+    linear-gradient(180deg,#f7f8fb,#ffffff) !important;
+}
+:root[data-theme="light"] .grid-bg{
+  opacity:.55;
+  background-image:linear-gradient(rgba(0,0,0,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.055) 1px,transparent 1px) !important;
+}
+.sw{
+  padding-left:clamp(34px,5vw,88px) !important;
+  padding-right:clamp(34px,5vw,88px) !important;
+}
+.sh{
+  padding-left:0 !important;
+}
+:root[data-theme="light"] .st,
+:root[data-theme="light"] .aw-name,
+:root[data-theme="light"] .pc-title,
+:root[data-theme="light"] .exp-role,
+:root[data-theme="light"] .contact-about strong{
+  color:#1d1d1f !important;
+}
+:root[data-theme="light"] .hero-desc,
+:root[data-theme="light"] .aw-sub,
+:root[data-theme="light"] .pc-desc,
+:root[data-theme="light"] .exp-bul,
+:root[data-theme="light"] .contact-about,
+:root[data-theme="light"] .c-val{
+  color:#515154 !important;
+}
+:root[data-theme="light"] .sk-name,
+:root[data-theme="light"] .sbl,
+:root[data-theme="light"] .ml,
+:root[data-theme="light"] .sn,
+:root[data-theme="light"] .exp-per,
+:root[data-theme="light"] .pc-cat,
+:root[data-theme="light"] .pc-tag,
+:root[data-theme="light"] .aw-year{
+  color:#0071e3 !important;
+}
+:root[data-theme="light"] .sk-pct,
+:root[data-theme="light"] .pc-open-btn{
+  color:#0066cc !important;
+}
+:root[data-theme="light"] .sk-track{
+  background:rgba(0,0,0,.08) !important;
+}
+:root[data-theme="light"] .sk-fill{
+  background:linear-gradient(90deg,#0071e3,#00c7be) !important;
+  box-shadow:none !important;
+}
+:root[data-theme="light"] .tool-chip,
+:root[data-theme="light"] .tool-logo,
+:root[data-theme="light"] .tool-mini-logo,
+:root[data-theme="light"] .cert-chip,
+:root[data-theme="light"] .pc-tag{
+  background:#ffffff !important;
+  color:#4d4d52 !important;
+  border-color:rgba(0,0,0,.10) !important;
+  box-shadow:0 8px 24px rgba(0,0,0,.06);
+}
+:root[data-theme="light"] .tool-logo:hover,
+:root[data-theme="light"] .tool-mini-logo:hover{
+  border-color:#0071e3 !important;
+  box-shadow:0 14px 34px rgba(0,113,227,.12) !important;
+}
+:root[data-theme="light"] .aw-card,
+:root[data-theme="light"] .pc,
+:root[data-theme="light"] .ai-box,
+:root[data-theme="light"] .exp-item,
+:root[data-theme="light"] .contact-about,
+:root[data-theme="light"] .c-link{
+  background:rgba(255,255,255,.88) !important;
+  border-color:rgba(0,0,0,.10) !important;
+  box-shadow:0 18px 44px rgba(0,0,0,.08) !important;
+}
+:root[data-theme="light"] .portrait-glow{
+  inset:-26px !important;
+  border:1px solid rgba(0,0,0,.08) !important;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.92),rgba(255,255,255,.74)),
+    radial-gradient(circle at 50% 18%,rgba(0,113,227,.14),transparent 52%) !important;
+  box-shadow:0 28px 70px rgba(0,0,0,.12),inset 0 0 0 1px rgba(255,255,255,.72) !important;
+}
+:root[data-theme="light"] .profile-photo,
+:root[data-theme="light"] .portrait-fallback{
+  padding:0;
+  background:
+    radial-gradient(circle at 50% 30%,rgba(0,113,227,.22),transparent 48%),
+    linear-gradient(180deg,#0e4ca3,#07182e 72%) !important;
+  border:1px solid rgba(0,0,0,.12) !important;
+  border-radius:30px !important;
+  box-shadow:0 22px 58px rgba(0,0,0,.16) !important;
+}
+:root[data-theme="light"] .profile-photo{
+  object-fit:cover;
+  object-position:center top;
+}
+:root[data-theme="light"] #home .hero-photo-caption{
+  background:rgba(255,255,255,.92) !important;
+  border-color:rgba(0,0,0,.10) !important;
+  box-shadow:0 18px 40px rgba(0,0,0,.14) !important;
+}
+:root[data-theme="light"] #home .hero-photo-caption b{
+  color:#1d1d1f !important;
+}
+:root[data-theme="light"] #home .hero-photo-caption span{
+  color:#6e6e73 !important;
+}
+:root[data-theme="light"] #home .hero-photo-col::before{
+  background:rgba(255,255,255,.62) !important;
+  border-color:rgba(0,0,0,.08) !important;
+}
+:root[data-theme="light"] #home .hero-name .first{
+  color:#1d1d1f !important;
+}
+:root[data-theme="light"] #home .hero-name .last{
+  background:linear-gradient(110deg,#0071e3,#00a6d6) !important;
+  -webkit-background-clip:text !important;
+  background-clip:text !important;
+}
+:root[data-theme="light"] #home .hero-rolebar{
+  background:rgba(255,255,255,.82) !important;
+  border-color:rgba(0,0,0,.10) !important;
+}
+:root[data-theme="light"] #home .hero-role{
+  color:#1d1d1f !important;
+}
+:root[data-theme="light"] .contact-about{
+  padding:28px 30px !important;
+}
+:root[data-theme="light"] .exp-item{
+  overflow:hidden;
+}
+:root[data-theme="light"] .exp-left{
+  background:rgba(0,113,227,.035) !important;
+}
+@media(max-width:980px){
+  .sw{
+    padding-left:24px !important;
+    padding-right:24px !important;
+  }
+}
+@media(max-width:700px){
+  .sw{
+    padding-left:18px !important;
+    padding-right:18px !important;
+  }
+}
+
+/* CARD BREATHING ROOM */
+.pc-body{
+  padding:20px 20px 18px !important;
+}
+.pc-desc{
+  margin-top:10px !important;
+}
+.pc-tags{
+  margin-top:14px !important;
+}
+.pc-foot{
+  padding-top:14px !important;
+  margin-top:14px !important;
+}
+.exp-right{
+  padding:24px 28px !important;
+}
+.contact-about p{
+  margin-bottom:18px !important;
+}
+.contact-about{
+  padding:28px 30px !important;
+}
+:root[data-theme="light"] .pc-thumb{
+  border-bottom:1px solid rgba(0,0,0,.08) !important;
+  background:#eef1f5 !important;
+}
+:root[data-theme="light"] .pc-thumb img{
+  filter:contrast(1.02) saturate(.96);
+}
+:root[data-theme="light"] .pc-thumb-fallback{
+  background:linear-gradient(180deg,#eef4fb,#dce6f2) !important;
+}
+:root[data-theme="light"] .pc-icon{
+  color:#4d4d52 !important;
+  text-shadow:0 10px 22px rgba(0,0,0,.16) !important;
+}
+
+/* CONTACT CARD SPACING */
+.contact-about{
+  padding:32px 36px !important;
+  line-height:1.8 !important;
+}
+#contact .contact-layout{
+  max-width:1180px;
+  margin:0 auto;
+}
+@media(max-width:700px){
+  .contact-about{
+    padding:24px 22px !important;
+  }
+}
+
+/* EXPERIENCE SECTION SPACING */
+#experience .sw{
+  padding-left:clamp(56px,6vw,104px) !important;
+  padding-right:clamp(36px,5vw,88px) !important;
+}
+#experience .exp-item{
+  grid-template-columns:minmax(220px,250px) 1fr !important;
+}
+#experience .exp-left{
+  padding:24px 26px !important;
+}
+#experience .exp-right{
+  padding:26px 32px !important;
+}
+@media(max-width:980px){
+  #experience .sw{
+    padding-left:32px !important;
+    padding-right:24px !important;
+  }
+}
+@media(max-width:700px){
+  #experience .sw{
+    padding-left:20px !important;
+    padding-right:18px !important;
+  }
+  #experience .exp-item{
+    grid-template-columns:1fr !important;
+  }
+}
+
+/* CERTIFICATE CTA VISIBILITY */
+:root[data-theme="light"] #certs .btn-ghost{
+  background:#0071e3 !important;
+  border-color:#0071e3 !important;
+  color:#ffffff !important;
+  box-shadow:0 12px 28px rgba(0,113,227,.22) !important;
+}
+:root[data-theme="light"] #certs .btn-ghost:hover{
+  background:#0066cc !important;
+  border-color:#0066cc !important;
+  color:#ffffff !important;
+  transform:translateY(-2px);
+}
+#certs .btn-ghost{
+  border-radius:999px !important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif !important;
+  font-weight:600 !important;
+  letter-spacing:0 !important;
+  text-transform:none !important;
+}
+
