@@ -1,4 +1,4 @@
-﻿var CREDS={user:"rey",pass:"kontol"};
+var CREDS={user:"rey",pass:"kontol"};
 var SK="crw_pf_v7";
 var THEME_KEY="crw_theme";
 var GH_TOKEN_KEY="crw_github_sync_token";
@@ -98,6 +98,13 @@ function loadDB(){
 }
 function saveDB(skipTouch){
   if(!skipTouch)DB.updatedAt=new Date().toISOString();
-  localStorage.setItem(SK,JSON.stringify(DB));
+  try{
+    localStorage.setItem(SK,JSON.stringify(DB));
+    return true;
+  }catch(err){
+    try{localStorage.removeItem(SK);}catch(e){}
+    console.warn("Local database cache skipped because browser storage is full.",err);
+    return false;
+  }
 }
 function nextId(arr){return arr.length?Math.max.apply(null,arr.map(function(x){return x.id;}))+1:1;}
